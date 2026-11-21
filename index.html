@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0912">
+<title>Catatan Studi Semester 5f</title>
+<meta name="description" content="Pilih mata kuliah untuk membaca rangkuman">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0912;--ink:#f4f2ff;--mute:#9a97b8;--lime:#c6ff3d;--pink:#ff4fa3;--vio:#8b5cff;--cyan:#27e1ff}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:'Bricolage Grotesque',system-ui,-apple-system,'Segoe UI',sans-serif;min-height:100vh;min-height:100dvh;line-height:1.4;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+
+/* blob background */
+.blob{position:fixed;border-radius:50%;filter:blur(70px);z-index:0;pointer-events:none;will-change:transform;animation:float 14s ease-in-out infinite alternate}
+.b1{width:320px;height:320px;background:var(--vio);top:-110px;left:-100px;opacity:.5}
+.b2{width:280px;height:280px;background:var(--pink);top:34%;right:-130px;opacity:.32;animation-delay:-5s}
+.b3{width:260px;height:260px;background:var(--cyan);bottom:-110px;left:8%;opacity:.22;animation-delay:-9s}
+@keyframes float{to{transform:translate(30px,40px) scale(1.15)}}
+
+.wrap{position:relative;z-index:1;max-width:960px;margin:0 auto;
+  padding:max(26px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(36px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+
+.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:99px;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--lime);background:rgba(198,255,61,.1);border:1px solid rgba(198,255,61,.4)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--lime);animation:pulse 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(198,255,61,.7)}70%,100%{box-shadow:0 0 0 9px rgba(198,255,61,0)}}
+
+h1{font-size:clamp(42px,13vw,76px);line-height:.98;font-weight:800;letter-spacing:-.04em;margin:18px 0 12px}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--lime),var(--cyan) 55%,var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--mute);font-size:16px;font-weight:500;max-width:480px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.chip{font-size:13px;font-weight:700;padding:6px 12px;border-radius:99px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)}
+
+.grid{display:grid;gap:12px;margin-top:26px;grid-template-columns:1fr}
+
+/* card: mobile = horizontal row */
+.card{--c1:hsl(var(--h) 95% 66%);--c2:hsl(calc(var(--h) + 50) 95% 62%);
+  position:relative;display:flex;align-items:center;gap:14px;min-height:92px;padding:14px 16px 14px 14px;border-radius:24px;
+  text-decoration:none;color:inherit;overflow:hidden;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--c1) 15%,transparent),rgba(255,255,255,.04) 65%);
+  border:1.5px solid color-mix(in srgb,var(--c1) 35%,transparent);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  transition:transform .2s cubic-bezier(.3,1.5,.5,1),box-shadow .2s,border-color .2s;
+  animation:pop .5s both;animation-delay:calc(var(--i) * 60ms)}
+@keyframes pop{from{opacity:0;transform:translateY(18px) scale(.96)}}
+.card:active{transform:scale(.97)}
+.card:focus-visible{outline:2px solid var(--c1);outline-offset:3px}
+@media(hover:hover){
+  .card:not(.off):hover{transform:translateY(-4px) rotate(-.4deg);border-color:var(--c1);box-shadow:0 14px 34px -14px var(--c1)}
+  .card:not(.off):hover .go{transform:rotate(-45deg)}
+}
+.ico{flex:none;width:58px;height:58px;border-radius:18px;display:grid;place-items:center;font-size:30px;
+  background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 8px 20px -8px var(--c1);transform:rotate(-6deg)}
+.txt{flex:1;min-width:0}
+.num{font-size:11px;font-weight:800;letter-spacing:.14em;color:var(--c1)}
+.name{font-size:17px;font-weight:700;line-height:1.2;margin-top:2px;overflow-wrap:anywhere}
+.tag{font-size:12.5px;font-weight:500;color:var(--mute);margin-top:4px}
+.go{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-size:18px;font-weight:800;
+  background:var(--c1);color:#0a0912;transition:transform .25s}
+
+.card.off{cursor:not-allowed;opacity:.6;filter:saturate(.35)}
+.card.off:active{transform:none}
+.card.off .go{background:rgba(255,255,255,.12);color:var(--mute)}
+
+/* tablet & desktop = vertical cards */
+@media(min-width:620px){
+  .grid{grid-template-columns:repeat(2,1fr);gap:16px}
+  .card{flex-direction:column;align-items:flex-start;gap:16px;min-height:200px;padding:20px}
+  .ico{width:64px;height:64px;font-size:34px}
+  .txt{flex:1;width:100%}
+  .name{font-size:19px}
+  .go{position:absolute;top:18px;right:18px}
+}
+@media(min-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<main class="wrap">
+  <span class="badge"><i class="dot"></i>Rangkuman Semester 5</span>
+  <h1>Pilih<br><em>Mata Kuliah</em> ✨</h1>
+  <p class="sub">Jangan menunggu motivasi datang untuk belajar, sebab terkadang semangat justru tumbuh dari langkah kecil yang kau paksakan</p>
+  <div class="chips" id="chips"></div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<script>
+// ══════════════════════════════════════════
+// DAFTAR MATA KULIAH — ubah bagian ini saja
+// link: '' → kartu tampil "Segera hadir" dan belum bisa dibuka
+// Kalau materinya sudah jadi, isi link-nya di sini.
+// ══════════════════════════════════════════
+const MATKUL = [
+  { name: 'Strategi Pembelajaran Kontemporer di SD', icon: '🎯', hue: 215, link: '' },
+  { name: 'Geometri dan Pengukuran Dasar di SD',     icon: '📐', hue: 265, link: 'https://rasyid-lei.github.io/Catatan-Studi-MTK-II/' },
+  { name: 'Konsep Dasar IPA SD',                     icon: '🔬', hue: 150, link: '' },
+  { name: 'Pembelajaran Tematik Terintegrasi di SD', icon: '🧩', hue: 35,  link: '' },
+  { name: 'Psikologi Komunikasi',                    icon: '🧠', hue: 330, link: '' },
+  { name: 'Komunikasi Personal Bermedia',            icon: '📱', hue: 185, link: 'https://rasyid-lei.github.io/Catatan-Studi-Komunikasi-Personal-Bermedia/' }
+];
+
+const grid = document.getElementById('grid');
+MATKUL.forEach((m, i) => {
+  const on = !!m.link;
+  const a = document.createElement(on ? 'a' : 'div');
+  a.className = 'card' + (on ? '' : ' off');
+  a.style.setProperty('--h', m.hue);
+  a.style.setProperty('--i', i);
+  if (on) { a.href = m.link; a.rel = 'noopener'; } else { a.setAttribute('aria-disabled', 'true'); }
+  const ico = document.createElement('div'); ico.className = 'ico'; ico.textContent = m.icon;
+  const txt = document.createElement('div'); txt.className = 'txt';
+  const num = document.createElement('div'); num.className = 'num'; num.textContent = String(i + 1).padStart(2, '0');
+  const nm = document.createElement('div'); nm.className = 'name'; nm.textContent = m.name;
+  const tag = document.createElement('div'); tag.className = 'tag'; tag.textContent = on ? 'Mulai Belajar' : 'Segera hadir';
+  txt.append(num, nm, tag);
+  const go = document.createElement('div'); go.className = 'go'; go.textContent = on ? '→' : '⏳';
+  a.append(ico, txt, go);
+  grid.appendChild(a);
+});
+
+const ready = MATKUL.filter(m => m.link).length, soon = MATKUL.length - ready;
+const chips = document.getElementById('chips');
+[`📚 ${MATKUL.length} mata kuliah`, `🔥 ${ready} siap dipakai`].concat(soon ? [`⏳ ${soon} segera hadir`] : []).forEach(t => {
+  const c = document.createElement('span'); c.className = 'chip'; c.textContent = t; chips.appendChild(c);
+});
+</script>
+</body>
+</html>
